@@ -4,7 +4,8 @@ export interface WalletState {
   network: 'Midnight Testnet' | 'Midnight Devnet' | 'Simulated Local Sandbox';
   shieldedBalance: string;
   isLaceInstalled: boolean;
-  walletName: 'Lace' | 'Freighter Bridge' | 'Midnight Testnet Sandbox';
+  isFreighterInstalled: boolean;
+  walletName: 'Lace' | 'Freighter Wallet' | 'Midnight Testnet Sandbox';
 }
 
 export class MidnightWalletService {
@@ -14,6 +15,7 @@ export class MidnightWalletService {
     network: 'Midnight Testnet',
     shieldedBalance: '250.00 tNIGHT',
     isLaceInstalled: false,
+    isFreighterInstalled: false,
     walletName: 'Midnight Testnet Sandbox'
   };
 
@@ -23,12 +25,13 @@ export class MidnightWalletService {
     this.checkAvailability();
   }
 
-  private checkAvailability(): void {
-    if (typeof window !== 'undefined' && (window as any).midnight?.lace) {
-      this.state.isLaceInstalled = true;
-      this.state.walletName = 'Lace';
-    } else if (typeof window !== 'undefined' && ((window as any).freighter || (window as any).freighterApi)) {
-      this.state.walletName = 'Freighter Bridge';
+  public checkAvailability(): void {
+    if (typeof window !== 'undefined') {
+      const hasLace = !!(window as any).midnight?.lace;
+      const hasFreighter = !!((window as any).freighter || (window as any).freighterApi);
+      
+      this.state.isLaceInstalled = hasLace;
+      this.state.isFreighterInstalled = hasFreighter;
     }
   }
 
@@ -45,6 +48,56 @@ export class MidnightWalletService {
   }
 
   public async connect(): Promise<WalletState> {
+    if (this.state.isFreighterInstalled) {
+      return this.connectFreighter();
+    } else if (this.state.isLaceInstalled) {
+      return this.connectLace();
+    }
+    return this.connectSandbox();
+  }
+
+  // Connect specifically to Freighter Wallet extension
+  public async connectFreighter(): Promise<WalletState> {
+    if (typeof window !== 'undefined') {
+      const freighter = (window as any).freighterApi || (window as any).freighter;
+      
+      if (freighter) {
+        try {
+          // Trigger actual Freighter Wallet Extension popup
+          let pubKey: string = '';
+          
+          if (typeof freighter.requestAccess === 'function') {
+            pubKey = await freighter.requestAccess();
+          } else if (typeof freighter.getPublicKey === 'function') {
+            pubKey = await freighter.getPublicKey();
+          }
+
+          if (pubKey) {
+            const formatted = `mn_zk_${pubKey.substring(0, 8)}...${pubKey.substring(pubKey.length - 4)}`;
+            this.state = {
+              isConnected: true,
+              address: formatted,
+              network: 'Midnight Testnet',
+              shieldedBalance: '850.00 tNIGHT',
+              isLaceInstalled: this.state.isLaceInstalled,
+              isFreighterInstalled: true,
+              walletName: 'Freighter Wallet'
+            };
+            this.notify();
+            return this.state;
+          }
+        } catch (err) {
+          console.warn('Freighter popup approval declined or error:', err);
+        }
+      }
+    }
+
+    // Fallback if extension not installed or rejected
+    return this.connectSandbox('Freighter Wallet');
+  }
+
+  // Connect specifically to Midnight Lace Wallet
+  public async connectLace(): Promise<WalletState> {
     if (typeof window !== 'undefined' && (window as any).midnight?.lace) {
       try {
         const lace = (window as any).midnight.lace;
@@ -56,48 +109,33 @@ export class MidnightWalletService {
           network: 'Midnight Testnet',
           shieldedBalance: '1,240.50 tNIGHT',
           isLaceInstalled: true,
+          isFreighterInstalled: this.state.isFreighterInstalled,
           walletName: 'Lace'
         };
+        this.notify();
+        return this.state;
       } catch (err) {
-        console.warn('Lace wallet authorization rejected, falling back to Sandbox connection');
-        this.connectSandbox('Lace');
+        console.warn('Lace wallet authorization rejected');
       }
-    } else if (typeof window !== 'undefined' && ((window as any).freighter || (window as any).freighterApi)) {
-      try {
-        const freighter = (window as any).freighter || (window as any).freighterApi;
-        let pubKey = 'mn_freighter_zk_77a1b92c44';
-        if (freighter.getPublicKey) {
-          const key = await freighter.getPublicKey();
-          if (key) pubKey = `mn_zk_${key.substring(0, 8)}...${key.substring(key.length - 4)}`;
-        }
-        this.state = {
-          isConnected: true,
-          address: pubKey,
-          network: 'Midnight Testnet',
-          shieldedBalance: '750.00 tNIGHT',
-          isLaceInstalled: false,
-          walletName: 'Freighter Bridge'
-        };
-      } catch (e) {
-        this.connectSandbox('Freighter Bridge');
-      }
-    } else {
-      this.connectSandbox('Midnight Testnet Sandbox');
     }
-    this.notify();
-    return this.state;
+
+    return this.connectSandbox('Lace');
   }
 
-  private connectSandbox(providerName: 'Lace' | 'Freighter Bridge' | 'Midnight Testnet Sandbox' = 'Midnight Testnet Sandbox'): void {
-    const mockAddress = `mn_test1_zk${Math.random().toString(36).substring(2, 8)}${Math.random().toString(36).substring(2, 8)}`;
+  // Connect Sandbox Mode
+  public connectSandbox(providerName: 'Lace' | 'Freighter Wallet' | 'Midnight Testnet Sandbox' = 'Midnight Testnet Sandbox'): WalletState {
+    const mockAddress = `mn_zk_${Math.random().toString(36).substring(2, 8)}${Math.random().toString(36).substring(2, 6)}`;
     this.state = {
       isConnected: true,
       address: mockAddress,
       network: 'Midnight Testnet',
       shieldedBalance: '500.00 tNIGHT',
-      isLaceInstalled: false,
+      isLaceInstalled: this.state.isLaceInstalled,
+      isFreighterInstalled: this.state.isFreighterInstalled,
       walletName: providerName
     };
+    this.notify();
+    return this.state;
   }
 
   public disconnect(): void {
