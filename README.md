@@ -1,6 +1,6 @@
 # NEXUS VAULT — Private Allowlist Access Protocol on Midnight
 
-[![CI/CD Pipeline](https://github.com/nexus-vault/nexus-vault/actions/workflows/ci.yml/badge.svg)](https://github.com/nexus-vault/nexus-vault/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/rishi3243kumar/Nexuxvault/actions/workflows/ci.yml/badge.svg)](https://github.com/rishi3243kumar/Nexuxvault/actions/workflows/ci.yml)
 ![Midnight Compact](https://img.shields.io/badge/Midnight-Compact_v0.14-00f2fe?style=flat-square)
 ![Vitest Passing](https://img.shields.io/badge/Tests-7%20Passing-00f5a0?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-7f00ff?style=flat-square)
@@ -150,8 +150,8 @@ The table below details the precise public vs. private state guarantees enforced
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/nexus-vault/nexus-vault.git
-cd nexus-vault
+git clone https://github.com/rishi3243kumar/Nexuxvault.git
+cd Nexuxvault
 
 # 2. Install project dependencies
 npm install
@@ -236,7 +236,7 @@ The passing status badge at the top of this README dynamically reflects the late
 ## Project Structure
 
 ```
-nexus-vault/
+Nexuxvault/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                 # GitHub Actions CI/CD workflow
