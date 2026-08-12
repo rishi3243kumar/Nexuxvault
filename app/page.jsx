@@ -33,7 +33,6 @@ export default function NexusVaultApp() {
   const [secretPassphrase, setSecretPassphrase] = useState('nexus_alpha_secret_pass_99812');
   const [sessionSalt, setSessionSalt] = useState('SESSION_SALT_2026');
   const [isProving, setIsProving] = useState(false);
-  const [copied, setCopied] = useState(false);
   
   // Console & Ledger State
   const [logs, setLogs] = useState([
@@ -266,7 +265,7 @@ export default function NexusVaultApp() {
               className="grid grid-cols-1 lg:grid-cols-12 gap-6"
             >
               {/* Left Column 2/3: Generate Access Proof Card */}
-              <div className="lg:col-span-8 group relative rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 shadow-2xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)]">
+              <div className="lg:col-span-8 group rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 shadow-2xl hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300">
                 
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
@@ -350,24 +349,27 @@ export default function NexusVaultApp() {
                   </div>
                 </div>
 
-                {/* Big CTA Button */}
+                {/* Big CTA Button with Shine & Loading */}
                 <button
                   type="button"
                   onClick={handleGenerateProof}
                   disabled={isProving}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 text-black font-bold text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.7)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="relative overflow-hidden w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 text-black font-bold text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.7)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                  {isProving ? (
-                    <>
-                      <RefreshCw className="w-5 h-5 animate-spin" />
-                      Computing ZK Proof...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-5 h-5 fill-black" />
-                      Generate & Submit Proof
-                    </>
-                  )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shine_2s_infinite]" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    {isProving ? (
+                      <>
+                        <RefreshCw className="w-5 h-5 animate-spin text-black" />
+                        COMPUTING ZK PROOF...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-5 h-5 fill-black text-black" />
+                        GENERATE & SUBMIT PROOF
+                      </>
+                    )}
+                  </span>
                 </button>
 
               </div>
@@ -376,7 +378,7 @@ export default function NexusVaultApp() {
               <div className="lg:col-span-4 space-y-6">
                 
                 {/* Terminal Log Box */}
-                <div className="rounded-3xl bg-[#05070f] border border-white/10 p-5 shadow-2xl space-y-3">
+                <div className="rounded-3xl bg-[#05070f] border border-white/10 p-5 shadow-2xl space-y-3 hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300">
                   <div className="flex items-center justify-between border-b border-white/10 pb-3">
                     <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
                       <Terminal className="w-4 h-4 text-cyan-400" />
@@ -395,10 +397,10 @@ export default function NexusVaultApp() {
                 </div>
 
                 {/* Security Status Box */}
-                <div className={`rounded-3xl p-5 border transition-all ${
+                <div className={`rounded-3xl p-5 border transition-all duration-300 ${
                   securityGranted
-                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.2)]'
-                    : 'bg-white/[0.02] border-white/10 text-slate-400'
+                    ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.25)]'
+                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-white/20'
                 }`}>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className={`w-6 h-6 ${securityGranted ? 'text-emerald-400' : 'text-slate-500'}`} />
@@ -439,7 +441,7 @@ export default function NexusVaultApp() {
               exit={{ opacity: 0, y: -20 }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-6"
             >
-              <div className="lg:col-span-6 rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl space-y-5">
+              <div className="lg:col-span-6 rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300 space-y-5">
                 <h3 className="text-sm font-bold font-['Space_Grotesk'] text-white uppercase tracking-wider flex items-center gap-2">
                   <Users className="w-4 h-4 text-cyan-400" /> Member Commitment Registration
                 </h3>
@@ -458,14 +460,15 @@ export default function NexusVaultApp() {
 
                   <button
                     onClick={handleAddMember}
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all"
+                    className="relative overflow-hidden w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-600 text-black font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all"
                   >
-                    Add Commitment to Merkle Tree
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shine_2s_infinite]" />
+                    <span className="relative z-10">Add Commitment to Merkle Tree</span>
                   </button>
                 </div>
               </div>
 
-              <div className="lg:col-span-6 rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl space-y-4">
+              <div className="lg:col-span-6 rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300 space-y-4">
                 <h3 className="text-sm font-bold font-['Space_Grotesk'] text-white uppercase tracking-wider flex items-center gap-2">
                   <Layers className="w-4 h-4 text-purple-400" /> Active Merkle Root State
                 </h3>
@@ -491,7 +494,7 @@ export default function NexusVaultApp() {
               exit={{ opacity: 0, y: -20 }}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              <div className="rounded-3xl bg-red-500/5 border border-red-500/20 p-6 space-y-4">
+              <div className="rounded-3xl bg-red-500/5 border border-red-500/20 p-6 space-y-4 hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] transition-all duration-300">
                 <h3 className="text-sm font-bold text-red-400 uppercase tracking-wider font-mono">
                   Standard EVM Public Allowlist
                 </h3>
@@ -505,7 +508,7 @@ export default function NexusVaultApp() {
                 </ul>
               </div>
 
-              <div className="rounded-3xl bg-emerald-500/5 border border-emerald-500/30 p-6 space-y-4 shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+              <div className="rounded-3xl bg-emerald-500/5 border border-emerald-500/30 p-6 space-y-4 shadow-[0_0_30px_rgba(16,185,129,0.15)] hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300">
                 <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider font-mono">
                   NEXUS VAULT Midnight ZK
                 </h3>
@@ -528,7 +531,7 @@ export default function NexusVaultApp() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl space-y-4"
+              className="rounded-3xl bg-[#080b14]/80 backdrop-blur-2xl border border-white/10 p-6 shadow-2xl hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-300 space-y-4"
             >
               <h3 className="text-sm font-bold font-['Space_Grotesk'] text-white uppercase tracking-wider flex items-center gap-2">
                 <Server className="w-4 h-4 text-cyan-400" /> On-Chain Midnight Verification Feed
