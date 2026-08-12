@@ -274,3 +274,14 @@ This project was submitted and approved under the **"Private Allowlist Access �
 ## License
 
 This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+## 🐙 GitHub & Repository Details
+
+- **GitHub Repository**: [https://github.com/rishi3243kumar/Nexuxvault](https://github.com/rishi3243kumar/Nexuxvault)
+- **Repository Owner**: `rishi3243kumar`
+- **Default Branch**: `main`
+- **CI/CD Pipeline**: [GitHub Actions Workflow File](.github/workflows/ci.yml)
+- **Submission Category**: Private Allowlist Access (Midnight Level 3 — First Quarter)
+
