@@ -1,0 +1,10 @@
+# VeilPass — Product Proposal
+
+## Problem Statement
+Traditional token-gated community access, whitelist presales, and member-only features on public EVM blockchains force users to expose their raw public wallet address and transaction history whenever proving membership. This lack of privacy exposes high-net-worth members, DAO contributors, and community delegates to targeted phishing, physical security risks, cross-dApp activity profiling, and unwanted surveillance whenever they interact with gated platforms.
+
+## Proposed Solution
+VeilPass solves this fundamentally by implementing a Zero-Knowledge Private Allowlist Access Protocol on the Midnight blockchain. An administrator stores a cryptographic Merkle root of hashed member commitments in Midnight's state. When a user wishes to unlock gated access, they generate an off-chain Zero-Knowledge proof via a Compact circuit proving they possess a secret key matching a leaf in the allowlist Merkle tree. The contract verifies the proof, checks a unique nullifier hash to prevent double-access replays, and updates a public ledger boolean (`accessGranted = true`) without ever revealing which identity proved access or exposing the member's wallet address.
+
+## Why Midnight's Privacy Model is Essential
+On standard EVM blockchains, allowlists require published mapping arrays or public Merkle proofs where submitting a transaction explicitly ties the sender's address (`msg.sender`) to the specific leaf index on-chain. Midnight's dual ledger architecture with Compact smart contracts is indispensable for VeilPass because it natively decouples private witness inputs (the member's secret key and Merkle path) from the public on-chain ledger state. Midnight allows execution of private circuits off-chain, outputting only a succinct ZK proof and non-linkable nullifier hash to the ledger. This guarantees complete selective disclosure: the public ledger verifies *that* a legitimate member proved access, while ensuring an observer CANNOT discern *who* accessed the system, what their address is, or which allowlist entry was used.
