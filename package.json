@@ -15,14 +15,6 @@
     "compile:contract": "echo 'Compiling Compact circuits...' && node -e \"console.log(' veilpass.compact compiled successfully.')\""
   },
   "dependencies": {
-    "@midnight-ntwrk/compact-runtime": "^0.7.0",
-    "@midnight-ntwrk/ledger": "^0.7.0",
-    "@midnight-ntwrk/midnight-js-contracts": "^0.7.0",
-    "@midnight-ntwrk/midnight-js-fetch-node-zk-config-provider": "^0.7.0",
-    "@midnight-ntwrk/midnight-js-http-proof-provider": "^0.7.0",
-    "@midnight-ntwrk/midnight-js-level-id-crypto-store": "^0.7.0",
-    "@midnight-ntwrk/midnight-js-types": "^0.7.0",
-    "@midnight-ntwrk/zswap": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
