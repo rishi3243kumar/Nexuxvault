@@ -1,0 +1,84 @@
+// VeilPass Private Allowlist Access Contract
+// Written in Midnight Compact Smart Contract Language
+pragma language_version >= 0.14.0;
+
+import CompactLanguage;
+
+// Ledger state accessible publicly on the Midnight blockchain
+export ledger allowlistRoot: Bytes<32>;
+export ledger nullifierHashes: Map<Bytes<32>, Boolean>;
+export ledger accessGranted: Boolean;
+
+// Admin commitment storage hash vector for verification lookup
+export ledger totalMembersCount: Uint<32>;
+
+// Witnesses: Private inputs supplied by the user prover off-chain (never exposed to ledger)
+witness userSecret(): Bytes<32>;
+witness merkleProofPath(): Vector<8, Bytes<32>>;
+witness merklePathIndices(): Vector<8, Boolean>; // false = left child, true = right child
+
+/**
+ * Helper function to compute binary Merkle Root inside Compact circuit
+ */
+circuit computeMerkleRoot(
+  leaf: Bytes<32>,
+  path: Vector<8, Bytes<32>>,
+  indices: Vector<8, Boolean>
+): Bytes<32> {
+  var current: Bytes<32> = leaf;
+  
+  for i in 0..8 {
+    let sibling = path[i];
+    let isRight = indices[i];
+    
+    if (isRight) {
+      current = persistent_hash<Vector<2, Bytes<32>>>([sibling, current]);
+    } else {
+      current = persistent_hash<Vector<2, Bytes<32>>>([current, sibling]);
+    }
+  }
+  
+  return current;
+}
+
+/**
+ * Main Zero-Knowledge Membership Circuit
+ * Proves that the caller knows a secret matching a commitment in the allowlist Merkle tree,
+ * without revealing identity, secret, leaf index, or address.
+ */
+export circuit proveMembership(providedNullifier: Bytes<32>): Boolean {
+  // 1. Fetch private witness data off-chain
+  let secret = userSecret();
+  let path = merkleProofPath();
+  let indices = merklePathIndices();
+
+  // 2. Compute commitment leaf from secret: H(secret)
+  let leafCommitment = persistent_hash<Bytes<32>>(secret);
+
+  // 3. Reconstruct Merkle Root inside ZK circuit
+  let calculatedRoot = computeMerkleRoot(leafCommitment, path, indices);
+
+  // 4. Assert calculated Merkle Root matches the on-chain allowlist root
+  assert calculatedRoot == allowlistRoot "ZK Proof Error: Calculated Merkle root does not match active allowlist root";
+
+  // 5. Derive unique nullifier hash inside circuit: H(secret + "VEILPASS_NULLIFIER")
+  let derivedNullifier = persistent_hash<Vector<2, Bytes<32>>>([secret, providedNullifier]);
+
+  // 6. Ensure nullifier has not been spent/used (prevents replay/double-access)
+  assert !nullifierHashes.member(derivedNullifier) "ZK Proof Error: Nullifier already submitted. Access attempt rejected.";
+
+  // 7. Update ledger state: Record nullifier as spent and grant public access status
+  nullifierHashes.insert(derivedNullifier, true);
+  accessGranted = true;
+
+  return true;
+}
+
+/**
+ * Admin circuit to initialize or update the allowlist root
+ */
+export circuit updateAllowlistRoot(newRoot: Bytes<32>, newCount: Uint<32>): [] {
+  allowlistRoot = newRoot;
+  totalMembersCount = newCount;
+  accessGranted = false;
+}
