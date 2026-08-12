@@ -120,7 +120,7 @@ The table below details the precise public vs. private state guarantees enforced
 *Figure 2: Vitest test suite log demonstrating 7/7 passing unit & integration tests (valid member proof, non-member rejection, nullifier reuse prevention, and identity confidentiality invariants).*
 
 ### 3. CI/CD GitHub Actions Workflow Pipeline
-![CI/CD Workflow Status Screenshot](./docs/assets/cicd_workflow_screenshot.png)
+![CI/CD GitHub Actions Workflow Pipeline](image-2.png)
 *Figure 3: GitHub Actions workflow execution showing automated dependency installation, Compact circuit compilation, and full test suite verification on every push/PR.*
 
 ---
