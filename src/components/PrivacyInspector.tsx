@@ -11,7 +11,7 @@ export const PrivacyInspector: React.FC = () => {
             <ShieldCheck className="w-5 h-5 text-veil-cyan" /> Privacy Model & On-Chain Audit Inspector
           </h2>
           <p className="text-xs text-slate-400 font-mono">
-            Side-by-side comparison of public ledger state on EVM vs. Midnight VeilPass ZK Compact
+            Side-by-side comparison of public ledger state on EVM vs. NEXUS VAULT ZK Compact
           </p>
         </div>
       </div>
@@ -57,12 +57,12 @@ export const PrivacyInspector: React.FC = () => {
           </div>
         </div>
 
-        {/* Midnight VeilPass ZK Model */}
+        {/* NEXUS VAULT ZK Model */}
         <div className="glass-card p-6 rounded-2xl border border-veil-emerald/30 bg-veil-emerald/5 space-y-4 shadow-glow-emerald">
           <div className="flex items-center justify-between border-b border-veil-emerald/20 pb-3">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-veil-emerald" />
-              <h3 className="text-sm font-bold text-veil-emerald">Midnight VeilPass ZK</h3>
+              <h3 className="text-sm font-bold text-veil-emerald">NEXUS VAULT Midnight ZK</h3>
             </div>
             <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-veil-emerald/20 text-veil-emerald font-bold">
               0% Identity Leaked

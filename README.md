@@ -1,6 +1,6 @@
-# VeilPass — Private Allowlist Access Protocol on Midnight
+# NEXUS VAULT — Private Allowlist Access Protocol on Midnight
 
-[![CI/CD Pipeline](https://github.com/veilpass/veilpass/actions/workflows/ci.yml/badge.svg)](https://github.com/veilpass/veilpass/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/nexus-vault/nexus-vault/actions/workflows/ci.yml/badge.svg)](https://github.com/nexus-vault/nexus-vault/actions/workflows/ci.yml)
 ![Midnight Compact](https://img.shields.io/badge/Midnight-Compact_v0.14-00f2fe?style=flat-square)
 ![Vitest Passing](https://img.shields.io/badge/Tests-7%20Passing-00f5a0?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-7f00ff?style=flat-square)
@@ -9,7 +9,7 @@
 
 ## Overview
 
-**VeilPass** is a privacy-preserving allowlist access dApp built on the **Midnight blockchain** using **Compact zero-knowledge smart contracts**. It allows users to prove membership in an admin-managed private allowlist without revealing their identity, raw wallet address, secret passphrase, or Merkle tree leaf index. This project was developed as a production-grade submission for the **Midnight "New Moon to Full" Level 3 (First Quarter)** developer hackathon.
+**NEXUS VAULT** is a privacy-preserving allowlist access dApp built on the **Midnight blockchain** using **Compact zero-knowledge smart contracts**. It allows users to prove membership in an admin-managed private allowlist without revealing their identity, raw wallet address, secret passphrase, or Merkle tree leaf index. This project was developed as a production-grade submission for the **Midnight "New Moon to Full" Level 3 (First Quarter)** developer hackathon.
 
 ---
 
@@ -21,7 +21,7 @@ Traditional token-gated community access, whitelist presales, and member-only dA
 
 ## Solution
 
-VeilPass fundamentally solves this issue by leveraging Midnight's dual-ledger state model and Compact Zero-Knowledge circuits. An administrator maintains a cryptographic Merkle root of hashed member commitments stored in Midnight's contract state. A user proves membership off-chain via a Compact circuit (`proveMembership`) using private witness inputs, emitting only a succinct Zero-Knowledge proof and single-use nullifier hash to the ledger. The contract verifies the proof and sets a public boolean (`accessGranted = true`) without ever storing or revealing the user's wallet address, identity, or allowlist entry position.
+NEXUS VAULT fundamentally solves this issue by leveraging Midnight's dual-ledger state model and Compact Zero-Knowledge circuits. An administrator maintains a cryptographic Merkle root of hashed member commitments stored in Midnight's contract state. A user proves membership off-chain via a Compact circuit (`proveMembership`) using private witness inputs, emitting only a succinct Zero-Knowledge proof and single-use nullifier hash to the ledger. The contract verifies the proof and sets a public boolean (`accessGranted = true`) without ever storing or revealing the user's wallet address, identity, or allowlist entry position.
 
 ---
 
@@ -30,8 +30,8 @@ VeilPass fundamentally solves this issue by leveraging Midnight's dual-ledger st
 ```
 +-----------------------------------------------------------------------------------+
 |                                  USER INTERFACE                                   |
-|   React + TypeScript + Vite + Tailwind CSS ([src/App.tsx](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/src/App.tsx))           |
-|   Connected to Midnight Lace Wallet / Sandbox ([src/services/midnightWallet.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/src/services/midnightWallet.ts))|
+|   React + TypeScript + Vite + Tailwind CSS ([src/App.tsx](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/src/App.tsx))     |
+|   Connected to Midnight Lace Wallet / Sandbox ([src/services/midnightWallet.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/src/services/midnightWallet.ts))|
 +-----------------------------------------------------------------------------------+
                                          |
                    1. Private Witness Off-Chain Input
@@ -39,7 +39,7 @@ VeilPass fundamentally solves this issue by leveraging Midnight's dual-ledger st
 +-----------------------------------------------------------------------------------+
 |                                COMPACT ZK PROVER                                  |
 |   Circuit: proveMembership(secret, merklePath, pathIndices)                       |
-|   Code: [contract/veilpass.compact](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/contract/veilpass.compact)                          |
+|   Code: [contract/veilpass.compact](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/contract/veilpass.compact)                   |
 |   - Computes H(secret) leaf commitment                                            |
 |   - Reconstructs Merkle root & asserts match with ledger root                     |
 |   - Computes unique single-use nullifier H(secret + salt)                         |
@@ -49,7 +49,7 @@ VeilPass fundamentally solves this issue by leveraging Midnight's dual-ledger st
                                          v
 +-----------------------------------------------------------------------------------+
 |                             MIDNIGHT BLOCKCHAIN LEDGER                            |
-|   Engine: [contract/veilpass_api.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/contract/veilpass_api.ts)                       |
+|   Engine: [contract/veilpass_api.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/contract/veilpass_api.ts)                |
 |   On-Chain State:                                                                 |
 |   - allowlistRoot: Bytes<32>                                                      |
 |   - nullifierHashes: Map<Bytes<32>, Boolean>                                      |
@@ -60,16 +60,16 @@ VeilPass fundamentally solves this issue by leveraging Midnight's dual-ledger st
                                          v
 +-----------------------------------------------------------------------------------+
 |                              NODE.JS EVENT INDEXER                                |
-|   Express REST API Server ([indexer/server.js](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/indexer/server.js))                  |
+|   Express REST API Server ([indexer/server.js](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/indexer/server.js))             |
 |   Watches ledger events & exposes anonymous status feed at /api/verifications     |
 +-----------------------------------------------------------------------------------+
 ```
 
 ### Component Details
-- **Frontend App (`/src`)**: Built with React 18, TypeScript, Vite, and Tailwind CSS. Interfaces with the Lace wallet service ([src/services/midnightWallet.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/src/services/midnightWallet.ts)) and renders the Member Portal, Admin Console, and Privacy Auditor UI.
-- **Compact Contract & Circuits (`/contract`)**: Written in Midnight's Compact language ([contract/veilpass.compact](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/contract/veilpass.compact)). Features private witness circuits for `proveMembership` and ledger state management for `allowlistRoot` and `nullifierHashes`.
+- **Frontend App (`/src`)**: Built with React 18, TypeScript, Vite, Framer Motion, and Tailwind CSS. Interfaces with the wallet service ([src/services/midnightWallet.ts](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/src/services/midnightWallet.ts)) and renders the Access Portal, Command Center, and Privacy Audit UI.
+- **Compact Contract & Circuits (`/contract`)**: Written in Midnight's Compact language ([contract/veilpass.compact](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/contract/veilpass.compact)). Features private witness circuits for `proveMembership` and ledger state management for `allowlistRoot` and `nullifierHashes`.
 - **Contract Engine & Crypto Helpers (`contract/veilpass_api.ts`, `contract/crypto_utils.ts`)**: TypeScript bindings managing 8-layer Merkle tree construction, leaf hashing, and proof simulation.
-- **Node.js Ledger Indexer (`/indexer`)**: Express backend service ([indexer/server.js](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/indexer/server.js)) monitoring state changes and serving REST API verification metrics.
+- **Node.js Ledger Indexer (`/indexer`)**: Express backend service ([indexer/server.js](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/indexer/server.js)) monitoring state changes and serving REST API verification metrics.
 
 ---
 
@@ -105,7 +105,7 @@ The table below details the precise public vs. private state guarantees enforced
 4. **The Merkle tree leaf index**: The position of the member's commitment within the tree is masked inside the ZK proof.
 5. **Cross-transaction linkability**: Session nullifier salts prevent tracking or linking multiple proof submissions from the same user.
 
-> **Contrast with EVM**: Unlike standard EVM allowlists where user addresses are publicly visible in contract mappings or Merkle proof calldata, VeilPass proves membership with **zero identity exposure**.
+> **Contrast with EVM**: Unlike standard EVM allowlists where user addresses are publicly visible in contract mappings or Merkle proof calldata, NEXUS VAULT proves membership with **zero identity exposure**.
 
 ---
 
@@ -133,7 +133,7 @@ The table below details the precise public vs. private state guarantees enforced
   - `@midnight-ntwrk/ledger` (^0.7.0)
   - `@midnight-ntwrk/midnight-js-contracts` (^0.7.0)
   - `@midnight-ntwrk/midnight-js-types` (^0.7.0)
-- **Frontend**: React 18.3, TypeScript 5.4, Vite 5.2, Tailwind CSS 3.4, Lucide React icons
+- **Frontend**: React 18.3, TypeScript 5.4, Vite 5.2, Framer Motion 11, Tailwind CSS 3.4, Lucide React icons
 - **Backend / Indexer**: Express 4.19, CORS 2.8, Node.js 20
 - **Testing Framework**: Vitest 1.6
 - **CI/CD Automation**: GitHub Actions (`.github/workflows/ci.yml`)
@@ -150,8 +150,8 @@ The table below details the precise public vs. private state guarantees enforced
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/veilpass/veilpass.git
-cd veilpass
+git clone https://github.com/nexus-vault/nexus-vault.git
+cd nexus-vault
 
 # 2. Install project dependencies
 npm install
@@ -172,7 +172,7 @@ Open your browser and navigate to `http://localhost:3000`.
 
 ## Running Tests
 
-VeilPass includes 7 unit and integration tests written in Vitest covering circuit logic, root verification, privacy constraints, and indexer integration.
+NEXUS VAULT includes 7 unit and integration tests written in Vitest covering circuit logic, root verification, privacy constraints, and indexer integration.
 
 Execute the full test suite with:
 
@@ -183,11 +183,11 @@ npm test
 ### Test Output Log
 
 ```text
- RUN  v1.6.1 C:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass
+ RUN  v1.6.1 C:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS VAULT-l3
 
- ✓ tests/integration.test.ts (1 test) 9ms
+ ✓ tests/integration.test.ts (1 test) 3ms
    ✓ validates complete off-chain witness generation to on-chain indexer record flow
- ✓ tests/veilpass.test.ts (6 tests) 31ms
+ ✓ tests/veilpass.test.ts (6 tests) 10ms
    ✓ (a) valid member proof succeeds and grants access on ledger
    ✓ (b) non-member proof fails ZK root verification
    ✓ (c) privacy invariant: secret identity & commitment never appear in public ledger state
@@ -197,14 +197,14 @@ npm test
 
  Test Files  2 passed (2)
       Tests  7 passed (7)
-   Duration  1.33s
+   Duration  881ms
 ```
 
 ---
 
 ## CI/CD Pipeline
 
-The repository uses GitHub Actions configured in [.github/workflows/ci.yml](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass/.github/workflows/ci.yml). 
+The repository uses GitHub Actions configured in [.github/workflows/ci.yml](file:///c:/Users/hp/Desktop/Moon/rishigshshshsh/NEXUS%20VAULT-l3/.github/workflows/ci.yml). 
 
 On every `push` or `pull_request` to `main` or `master`, the workflow automatically:
 1. Checks out source code and initializes Node.js 20 environment with npm caching.
@@ -229,17 +229,19 @@ The passing status badge at the top of this README dynamically reflects the late
 
 🎥 Demo video (1 min): [ADD LINK AFTER RECORDING]
 
-*(Includes walkthrough of Lace Wallet connection, off-chain ZK witness proof generation, `accessGranted` ledger confirmation, and privacy inspector audit).*
+*(Includes walkthrough of Lace Wallet / Freighter connection, off-chain ZK witness proof generation, `accessGranted` ledger confirmation, and privacy inspector audit).*
 
 ---
 
 ## Project Structure
 
 ```
-VeilPass/
+nexus-vault/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                 # GitHub Actions CI/CD workflow
+├── app/
+│   └── page.jsx                   # NEXUS VAULT Next.js App Router Page
 ├── contract/
 │   ├── veilpass.compact           # Midnight Compact ZK membership proof circuit
 │   ├── veilpass_api.ts            # Contract state engine & Merkle tree manager
@@ -249,11 +251,11 @@ VeilPass/
 ├── indexer/
 │   └── server.js                  # Express REST API watching Midnight ledger events
 ├── src/
-│   ├── components/                # MemberPortal, AdminConsole, PrivacyInspector, IndexerFeed, etc.
-│   ├── services/                  # Midnight Lace Wallet integration service
+│   ├── components/                # Access Portal, Command Center, Privacy Audit, etc.
+│   ├── services/                  # Midnight Lace & Freighter Wallet integration service
 │   ├── types/                     # Ambient Midnight TypeScript declarations
-│   ├── App.tsx                    # Main React dApp layout & tab navigation
-│   └── index.css                  # Dark glassmorphic design system tokens
+│   ├── App.tsx                    # Main NEXUS VAULT layout & tab navigation
+│   └── index.css                  # Cyberpunk design system tokens & animations
 ├── tests/
 │   ├── veilpass.test.ts           # Vitest contract & privacy unit tests (6 tests)
 │   └── integration.test.ts        # Vitest client-to-indexer integration test (1 test)

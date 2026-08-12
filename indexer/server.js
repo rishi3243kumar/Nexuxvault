@@ -42,7 +42,7 @@ let stats = {
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'HEALTHY',
-    service: 'VeilPass Midnight Ledger Indexer',
+    service: 'NEXUS VAULT Midnight Ledger Indexer',
     network: 'Midnight Testnet',
     compactVersion: '0.14.0',
     indexedBlockHeight: stats.lastIndexedBlock,

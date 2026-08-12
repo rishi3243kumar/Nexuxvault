@@ -1,9 +1,9 @@
 {
-  "name": "veilpass",
+  "name": "nexus-vault",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Private Allowlist Access dApp on Midnight Blockchain using Zero-Knowledge Proofs",
+  "description": "NEXUS VAULT — Private Allowlist Access dApp on Midnight Blockchain using Zero-Knowledge Proofs",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

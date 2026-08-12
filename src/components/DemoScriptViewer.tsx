@@ -3,7 +3,7 @@ import { Video, PlayCircle, Clock, CheckSquare } from 'lucide-react';
 
 export const DemoScriptViewer: React.FC = () => {
   const scriptSteps = [
-    { time: '0:00 - 0:12', title: 'Introduction & Problem Overview', desc: 'Introduce VeilPass and state the core problem of raw address exposure in public allowlists.' },
+    { time: '0:00 - 0:12', title: 'Introduction & Problem Overview', desc: 'Introduce NEXUS VAULT and state the core problem of raw address exposure in public allowlists.' },
     { time: '0:12 - 0:25', title: 'Wallet Connection', desc: 'Demonstrate Lace Wallet connection to Midnight Testnet sandbox.' },
     { time: '0:25 - 0:42', title: 'ZK Proof Generation & Circuit Execution', desc: 'Select valid member secret, trigger proveMembership Compact circuit execution off-chain.' },
     { time: '0:42 - 0:55', title: 'On-Chain Access Grant & Privacy Verification', desc: 'Highlight accessGranted = TRUE ledger status with zero member identity or leaf index leak.' },

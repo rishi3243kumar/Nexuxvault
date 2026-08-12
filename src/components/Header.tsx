@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-extrabold tracking-tight text-white">VeilPass</h1>
+              <h1 className="text-xl font-extrabold tracking-tight text-white">NEXUS VAULT</h1>
               <span className="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider rounded-full bg-veil-cyan/10 text-veil-cyan border border-veil-cyan/30">
                 Midnight ZK
               </span>
