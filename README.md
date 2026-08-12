@@ -109,6 +109,22 @@ The table below details the precise public vs. private state guarantees enforced
 
 ---
 
+## 📸 Screenshots & Visual Verification
+
+### 1. dApp Interface & ZK Member Portal Design
+![dApp Interface & Design Screenshot](./docs/assets/dapp_interface_screenshot.png)
+*Figure 1: VeilPass dark glassmorphic user interface featuring Lace Wallet connection, off-chain ZK witness proof generator, Admin Allowlist Console, and Privacy Auditor.*
+
+### 2. Test Output Verification (7 Passing Tests)
+![Vitest Output Screenshot](./docs/assets/test_output_screenshot.png)
+*Figure 2: Vitest test suite log demonstrating 7/7 passing unit & integration tests (valid member proof, non-member rejection, nullifier reuse prevention, and identity confidentiality invariants).*
+
+### 3. CI/CD GitHub Actions Workflow Pipeline
+![CI/CD Workflow Status Screenshot](./docs/assets/cicd_workflow_screenshot.png)
+*Figure 3: GitHub Actions workflow execution showing automated dependency installation, Compact circuit compilation, and full test suite verification on every push/PR.*
+
+---
+
 ## Tech Stack
 
 - **Smart Contract Language**: Midnight Compact (`pragma language_version >= 0.14.0`)
@@ -164,7 +180,7 @@ Execute the full test suite with:
 npm test
 ```
 
-### Test Output Verification
+### Test Output Log
 
 ```text
  RUN  v1.6.1 C:/Users/hp/Desktop/Moon/rishigshshshsh/VeilPass
@@ -228,6 +244,8 @@ VeilPass/
 │   ├── veilpass.compact           # Midnight Compact ZK membership proof circuit
 │   ├── veilpass_api.ts            # Contract state engine & Merkle tree manager
 │   └── crypto_utils.ts            # Deterministic hash & commitment helpers
+├── docs/
+│   └── assets/                    # Screenshots for dApp design, tests, and CI/CD workflow
 ├── indexer/
 │   └── server.js                  # Express REST API watching Midnight ledger events
 ├── src/
