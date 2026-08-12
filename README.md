@@ -227,9 +227,9 @@ The passing status badge at the top of this README dynamically reflects the late
 
 ## Demo Video
 
-🎥 Demo video (1 min): [ADD LINK AFTER RECORDING]
+🎥 **Demo Video (1 min walkthrough)**: [https://photos.app.goo.gl/fxB92ZjnmNU2doxb9](https://photos.app.goo.gl/fxB92ZjnmNU2doxb9)
 
-*(Includes walkthrough of Lace Wallet / Freighter connection, off-chain ZK witness proof generation, `accessGranted` ledger confirmation, and privacy inspector audit).*
+*(Walkthrough featuring multi-wallet connection with Freighter/Lace, off-chain ZK witness proof generation, `accessGranted` ledger confirmation, and privacy audit inspector).*
 
 ---
 
@@ -281,6 +281,7 @@ This project is licensed under the [MIT License](./LICENSE).
 
 - **GitHub Repository**: [https://github.com/rishi3243kumar/Nexuxvault](https://github.com/rishi3243kumar/Nexuxvault)
 - **Live Website URL**: [https://nexuxvault.vercel.app/](https://nexuxvault.vercel.app/)
+- **Demo Video URL**: [https://photos.app.goo.gl/fxB92ZjnmNU2doxb9](https://photos.app.goo.gl/fxB92ZjnmNU2doxb9)
 - **Repository Owner**: `rishi3243kumar`
 - **Default Branch**: `main`
 - **CI/CD Pipeline**: [GitHub Actions Workflow File](.github/workflows/ci.yml)
