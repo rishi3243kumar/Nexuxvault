@@ -219,9 +219,9 @@ The passing status badge at the top of this README dynamically reflects the late
 
 ## Live Demo
 
-🔗 Live demo: [ADD LINK AFTER DEPLOYMENT]
+🔗 **Live Website**: [https://nexuxvault.vercel.app/](https://nexuxvault.vercel.app/)
 
-*(Note: Target contract deployed to Midnight Testnet / Simulated Local Sandbox environment).*
+*(Production dApp deployed on Vercel connected to Midnight Testnet / Simulated Local Sandbox ZK Witness Prover).*
 
 ---
 
@@ -280,6 +280,7 @@ This project is licensed under the [MIT License](./LICENSE).
 ## 🐙 GitHub & Repository Details
 
 - **GitHub Repository**: [https://github.com/rishi3243kumar/Nexuxvault](https://github.com/rishi3243kumar/Nexuxvault)
+- **Live Website URL**: [https://nexuxvault.vercel.app/](https://nexuxvault.vercel.app/)
 - **Repository Owner**: `rishi3243kumar`
 - **Default Branch**: `main`
 - **CI/CD Pipeline**: [GitHub Actions Workflow File](.github/workflows/ci.yml)
