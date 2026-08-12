@@ -112,11 +112,11 @@ The table below details the precise public vs. private state guarantees enforced
 ## 📸 Screenshots & Visual Verification
 
 ### 1. dApp Interface & ZK Member Portal Design
-![dApp Interface & Design Screenshot](./docs/assets/dapp_interface_screenshot.png)
-*Figure 1: VeilPass dark glassmorphic user interface featuring Lace Wallet connection, off-chain ZK witness proof generator, Admin Allowlist Console, and Privacy Auditor.*
+![NEXUS VAULT dApp Interface & Design](image.png)
+*Figure 1: NEXUS VAULT dark glassmorphic user interface featuring Wallet connection, off-chain ZK witness proof generator, Command Center Console, and Privacy Auditor.*
 
 ### 2. Test Output Verification (7 Passing Tests)
-![Vitest Output Screenshot](./docs/assets/test_output_screenshot.png)
+![Vitest 7/7 Passing Test Suite Output](image-1.png)
 *Figure 2: Vitest test suite log demonstrating 7/7 passing unit & integration tests (valid member proof, non-member rejection, nullifier reuse prevention, and identity confidentiality invariants).*
 
 ### 3. CI/CD GitHub Actions Workflow Pipeline
