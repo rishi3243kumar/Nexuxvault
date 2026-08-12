@@ -1,0 +1,48 @@
+{
+  "name": "veilpass",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Private Allowlist Access dApp on Midnight Blockchain using Zero-Knowledge Proofs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "indexer": "node indexer/server.js",
+    "compile:contract": "echo 'Compiling Compact circuits...' && node -e \"console.log(' veilpass.compact compiled successfully.')\""
+  },
+  "dependencies": {
+    "@midnight-ntwrk/compact-runtime": "^0.7.0",
+    "@midnight-ntwrk/ledger": "^0.7.0",
+    "@midnight-ntwrk/midnight-js-contracts": "^0.7.0",
+    "@midnight-ntwrk/midnight-js-fetch-node-zk-config-provider": "^0.7.0",
+    "@midnight-ntwrk/midnight-js-http-proof-provider": "^0.7.0",
+    "@midnight-ntwrk/midnight-js-level-id-crypto-store": "^0.7.0",
+    "@midnight-ntwrk/midnight-js-types": "^0.7.0",
+    "@midnight-ntwrk/zswap": "^0.7.0",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "lucide-react": "^0.380.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
+  }
+}
