@@ -80,7 +80,7 @@ The table below details the precise public vs. private state guarantees enforced
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                 OBSERVER PRIVACY MATRIX                 │
-├────────────────────────────┬────────────────────────────┤
+├────────────────────────────┼────────────────────────────┤
 │    PUBLIC LEDGER SEES      │  PUBLIC LEDGER CANNOT SEE  │
 ├────────────────────────────┼────────────────────────────┤
 │ 🟢 accessGranted = true    │ 🛑 Member Wallet Address   │
@@ -284,4 +284,3 @@ This project is licensed under the [MIT License](./LICENSE).
 - **Default Branch**: `main`
 - **CI/CD Pipeline**: [GitHub Actions Workflow File](.github/workflows/ci.yml)
 - **Submission Category**: Private Allowlist Access (Midnight Level 3 — First Quarter)
-
